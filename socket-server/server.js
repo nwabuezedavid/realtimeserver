@@ -6,7 +6,7 @@ const httpServer = createServer();
 
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL, // ✅ restrict origin
+    origin: "*", // ✅ restrict origin
     methods: ["GET", "POST"],
   },
 });

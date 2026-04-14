@@ -1,13 +1,13 @@
 module.exports = (socket, next) => {
-  const token = socket.handshake.auth.token;
+  const clientKey = socket.handshake.auth.key;
 
-  if (!token) {
-    return next(new Error("Unauthorized"));
+  if (!clientKey) {
+    return next(new Error("No API key provided"));
   }
 
-  // TODO: verify JWT here
-  // const user = verifyToken(token);
+  if (clientKey !== process.env.SOCKET_SECRET_KEY) {
+    return next(new Error("Invalid API key"));
+  }
 
-  socket.user = { id: "userId" }; // attach user
   next();
 };

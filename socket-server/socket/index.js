@@ -1,16 +1,13 @@
-const registerEvents = require("./events");
 const authMiddleware = require("./middleware");
 
 module.exports = (io) => {
-  io.use(authMiddleware); // ✅ protect connections
+  io.use(authMiddleware);
 
   io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
-
-    registerEvents(io, socket);
+    console.log("Authorized user:", socket.id);
 
     socket.on("disconnect", () => {
-      console.log("User disconnected:", socket.id);
+      console.log("Disconnected:", socket.id);
     });
   });
 };
